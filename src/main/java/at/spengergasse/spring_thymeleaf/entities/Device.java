@@ -9,7 +9,7 @@ public class Device
 {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-
+    @Column
     private int id;
     private String art;
     private int raumnr;

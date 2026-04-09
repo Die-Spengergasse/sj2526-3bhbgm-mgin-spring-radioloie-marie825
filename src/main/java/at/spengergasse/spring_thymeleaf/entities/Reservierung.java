@@ -2,6 +2,7 @@ package at.spengergasse.spring_thymeleaf.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,8 +11,13 @@ public class Reservierung
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
+    @Column
     private LocalDateTime reservationDate;
+    private LocalDate reservationTime;
+    private String bodyPart;
+    private String commentar;
 
     // Instanzen
     private int patient;
@@ -47,5 +53,13 @@ public class Reservierung
 
     public void setDevice(int device) {
         this.device = device;
+    }
+
+    public LocalDate getReservationTime() {
+        return reservationTime;
+    }
+
+    public void setReservationTime(LocalDate reservationTime) {
+        this.reservationTime = reservationTime;
     }
 }

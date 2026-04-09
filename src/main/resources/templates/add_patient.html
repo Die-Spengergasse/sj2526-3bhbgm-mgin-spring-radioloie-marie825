@@ -7,9 +7,19 @@
 </head>
 <body>
 <div class="container">
+    <h1>Add new Patient</h1>
     <form th:action="@{/patient/add}" th:object="${patient}" method="post">
-        <input type="text" th:field="*{name}" class="form-control" placeholder="patient name">
-        birth date <input type="date" th:field="*{birth}" class="form-control">
+
+        Vorname<input type="text" th:field="*{name}" class="form-control" placeholder="patient vorname">
+
+        Nachname<input type="text" th:field="*{surname}" class="form-control" placeholder="patient nachname">
+
+        Birth date <input type="date" th:field="*{birth}" class="form-control">
+
+        Sozialversicherungsnummer<input type="number" th:field="*{svnr}" class="form-control">
+
+        Geschlecht<input type="text" th:field="*{geschlecht}" class="form-control">
+
         <input type="submit" class="form-control" value="Save">
     </form>
 </div>

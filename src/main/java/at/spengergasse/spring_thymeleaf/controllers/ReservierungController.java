@@ -25,7 +25,7 @@ public class ReservierungController
     public String reservierung(Model model)
     {
         model.addAttribute("reservierung",reservierungrepository.findAll());
-            return "reservierungslist";
+            return "reservierunglist";
         }
     @GetMapping("/add")
         public String addReservation(Model model)
@@ -34,7 +34,7 @@ public class ReservierungController
             return "add_reservierung";
         }
 
-        @PostMapping("/add")
+        @PostMapping("/list")
         public String addReservation(@ModelAttribute("reservierung") Reservierung reservierung)
         {
             reservierungrepository.save(reservierung);
