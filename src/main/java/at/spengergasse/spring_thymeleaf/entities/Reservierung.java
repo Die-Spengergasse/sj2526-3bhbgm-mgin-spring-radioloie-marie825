@@ -55,11 +55,15 @@ public class Reservierung
         this.device = device;
     }
 
-    public LocalDate getReservationTime() {
-        return reservationTime;
-    }
+    public LocalDate getReservationTime() {return reservationTime;}
 
-    public void setReservationTime(LocalDate reservationTime) {
-        this.reservationTime = reservationTime;
-    }
+    public void setReservationTime(LocalDate reservationTime) {this.reservationTime = reservationTime;}
+
+    public String getBodyPart() {return bodyPart;}
+
+    public void setBodyPart(String bodyPart) {this.bodyPart = bodyPart;}
+
+    public String getCommentar() {return commentar;}
+
+    public void setCommentar(String commentar) {this.commentar = commentar;}
 }

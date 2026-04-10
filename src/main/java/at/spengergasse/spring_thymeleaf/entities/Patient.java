@@ -14,7 +14,7 @@ public class Patient {
     private String name;
     private String surname;
     private char geschlecht;
-    private long svnr;
+    private String svnr;
     //@DateTimeFormat(pattern = "dd-MM-yyyy")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birth;
@@ -67,11 +67,11 @@ public class Patient {
         this.geschlecht = geschlecht;
     }
 
-    public long getSvnr() {
+    public String getSvnr() {
         return svnr;
     }
 
-    public void setSvnr(long svnr) {
+    public void setSvnr(String svnr) {
         this.svnr = svnr;
     }
 }

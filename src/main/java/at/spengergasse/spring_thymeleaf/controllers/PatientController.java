@@ -37,4 +37,18 @@ public class PatientController {
         patientRepository.save(patient);
         return  "redirect:/patient/list";
     }
+//@PostMapping("/add")
+//public String addPatient(@ModelAttribute("patient") Patient patient) {
+//    System.out.println("=== PATIENT DEBUG ===");
+//    System.out.println("name: '" + patient.getName() + "'");
+//    System.out.println("surname: '" + patient.getSurname() + "'");
+//    System.out.println("birth: " + patient.getBirth());
+//    System.out.println("svnr: '" + patient.getSvnr() + "'");
+//    System.out.println("geschlecht: '" + patient.getGeschlecht() + "' (char: " + (int)patient.getGeschlecht() + ")");
+//    System.out.println("=== END DEBUG ===");
+//
+//    patientRepository.saveAndFlush(patient);  // Sofort flush!
+//    System.out.println("Saved ID: " + patient.getId());
+//    return "redirect:/patient/list";
+//}
 }

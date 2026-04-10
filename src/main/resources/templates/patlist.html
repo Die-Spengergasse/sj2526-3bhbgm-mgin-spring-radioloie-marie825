@@ -21,8 +21,9 @@
         <tr th:each="p : ${patients}">
             <td th:text="${p.name}"></td>
             <td th:text="${p.surname}"></td>
-            <td th:date="${p.birth}"></td>
-            <td th:number="${p.svnr}"></td>
+<!--            <td th:date="${p.birth}"></td>-->
+            <td th:text="${#temporals.format(p.birth, 'dd.MM.yyyy')}"></td>
+            <td th:text="${p.svnr}"></td>
             <td th:text="${p.geschlecht}"></td>
         </tr>
         </tbody>
@@ -31,6 +32,9 @@
 
     <p>
         <a href="/patient/add">new patient</a>
+    </p>
+    <p>
+        <a href="/">startseite</a>
     </p>
 </div>
 </body>
