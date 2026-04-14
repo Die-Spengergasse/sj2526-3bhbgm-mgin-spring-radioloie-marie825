@@ -2,15 +2,36 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>add new patient</title>
+    <title>add new reservations</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
     <h1>Add new Reservation</h1>
     <form th:action="@{/reservierung/add}" th:object="${reservierung}" method="post">
-        Reservation Date<input type="date" th:field="*{reservationDate}" class="form-control" placeholder="reservierung Date">
-        Reservation Time<input type="time" th:field="*{reservationTime}" class="form-control">
+        Reservation Date
+        <input type="date" th:field="*{reservationDate}" class="form-control" placeholder="reservierung Date">
+
+        Reservation Time
+        <input type="text" th:field="*{reservationTime}" class="form-control">
+
+        choose patient
+        <select th:field="*{patient.id}" class="form-control">
+            <option th:each="p : ${patients}" th:value="${p.id}" th:text="${p.name + ' ' + p.surname}"></option>
+        </select>
+
+        choose body region
+        <select th:field="*{bodyPart}" class="form-control">
+            <option value="head">head</option>
+            <option value="chest">chest</option>
+            <option value="abdomen">abdomen</option>
+            <option value="pelvis">pelvis</option>
+            <option value="extremities">extremities</option>
+        </select>
+
+        additional comment
+        <input type="text" th:field="*{commentar}" class="form-control" placeholder="additional comment">
+
         <input type="submit" class="form-control" value="Save">
     </form>
 </div>

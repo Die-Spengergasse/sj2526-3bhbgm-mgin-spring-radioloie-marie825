@@ -3,25 +3,46 @@ package at.spengergasse.spring_thymeleaf.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "r_reservierung")
 public class Reservierung
 {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column
     private int id;
+
     @Column
-    private LocalDateTime reservationDate;
-    private LocalDate reservationTime;
+    private LocalDate reservationDate;
+
+    @Column
+    private String reservationTime;
+
     private String bodyPart;
+
     private String commentar;
 
-    // Instanzen
-    private int patient;
-    private int device;
+    @ManyToOne
+    @JoinColumn(name="patient_id")
+    private Patient patient;
+
+    @ManyToOne
+    @JoinColumn(name="device_id")
+    private Device device;
+
+    public Reservierung(int id, LocalDate reservationDate, String reservationTime, String bodyPart, String commentar, Patient patient, Device device) {
+        this.id = id;
+        this.reservationDate = reservationDate;
+        this.reservationTime = reservationTime;
+        this.bodyPart = bodyPart;
+        this.commentar = commentar;
+        this.patient = patient;
+        this.device = device;
+    }
+    public Reservierung(){
+
+    }
 
     public int getId() {
         return id;
@@ -31,33 +52,25 @@ public class Reservierung
         this.id = id;
     }
 
-    public LocalDateTime getReservationDate() {
+    public Patient getPatient() {return patient;}
+
+    public void setPatient(Patient patient) {this.patient = patient;}
+
+    public Device getDevice() {return device;}
+
+    public void setDevice(Device device) {this.device = device;}
+
+    public LocalDate getReservationDate() {
         return reservationDate;
     }
 
-    public void setReservationDate(LocalDateTime reservationDate) {
+    public void setReservationDate(LocalDate reservationDate) {
         this.reservationDate = reservationDate;
     }
 
-    public int getPatient() {
-        return patient;
-    }
+    public String getReservationTime() {return reservationTime;}
 
-    public void setPatient(int patient) {
-        this.patient = patient;
-    }
-
-    public int getDevice() {
-        return device;
-    }
-
-    public void setDevice(int device) {
-        this.device = device;
-    }
-
-    public LocalDate getReservationTime() {return reservationTime;}
-
-    public void setReservationTime(LocalDate reservationTime) {this.reservationTime = reservationTime;}
+    public void setReservationTime(String reservationTime) {this.reservationTime = reservationTime;}
 
     public String getBodyPart() {return bodyPart;}
 
