@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Device List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>art</th>
+            <th>Raum Nummer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="d: ${device}">
+            <td th:text="${d. art}"></td>
+            <td th:text="${d.raumnr}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <p>
+        <a href="/device/add">new device</a>
+    </p>
+    <p>
+        <a href="/">startseite</a>
+    </p>
+</div>
+</body>
+</html>

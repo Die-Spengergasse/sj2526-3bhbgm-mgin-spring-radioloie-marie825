@@ -24,13 +24,13 @@ public class DeviceController
     @GetMapping("/list")
     public String device(Model model) {
         model.addAttribute("device", deviceRepository.findAll());
-        return "patlist";
+        return "devicelist";
     }
 
     @GetMapping("/add")
     public String addDevice(Model model) {
         model.addAttribute("device", new Device());
-        return "add_device";
+        return "adddevice";
     }
 
     @PostMapping("/add")

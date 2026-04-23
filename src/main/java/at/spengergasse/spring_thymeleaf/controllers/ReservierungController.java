@@ -5,11 +5,11 @@ import at.spengergasse.spring_thymeleaf.entities.Reservierung;
 import at.spengergasse.spring_thymeleaf.entities.ReservierungRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/reservierung")
@@ -26,7 +26,7 @@ public class ReservierungController
     }
 
     @GetMapping("/list")
-    public String reservierung(Model model, Integer deviceId) {
+    public String reservierung(Model model, @RequestParam(required = false) Integer deviceId) {
         if (deviceId != null) {
             model.addAttribute("reservierung", reservierungrepository.findByDeviceId(deviceId));
         } else {
@@ -46,8 +46,30 @@ public class ReservierungController
         }
 
         @PostMapping("/add")
-        public String addReservation(@ModelAttribute("reservierung") Reservierung reservierung)
+        public String addReservation(@ModelAttribute("reservierung") Reservierung reservierung,
+                                     @RequestParam(required = false) Integer patientId,
+                                     @RequestParam(required = false) Integer deviceId,
+                                     Model model)
         {
+            if (patientId == null || deviceId == null) {
+                model.addAttribute("patients", patientrepository.findAll());
+                model.addAttribute("devices", devicerepository.findAll());
+                model.addAttribute("errorMessage", "Bitte Patient und Geraet auswaehlen.");
+                return "add_reservierung";
+            }
+
+            Patient patient = patientrepository.findById(patientId).orElse(null);
+            Device device = devicerepository.findById(deviceId).orElse(null);
+
+            if (patient == null || device == null) {
+                model.addAttribute("patients", patientrepository.findAll());
+                model.addAttribute("devices", devicerepository.findAll());
+                model.addAttribute("errorMessage", "Patient oder Geraet wurde nicht gefunden.");
+                return "add_reservierung";
+            }
+
+            reservierung.setPatient(patient);
+            reservierung.setDevice(device);
             reservierungrepository.save(reservierung);
             return "redirect:/reservierung/list";
         }

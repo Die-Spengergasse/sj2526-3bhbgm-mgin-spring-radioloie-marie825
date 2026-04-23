@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>add new reservations</title>
@@ -9,15 +9,24 @@
 <div class="container">
     <h1>Add new Reservation</h1>
     <form th:action="@{/reservierung/add}" th:object="${reservierung}" method="post">
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
         Reservation Date
         <input type="date" th:field="*{reservationDate}" class="form-control" placeholder="reservierung Date">
 
         Reservation Time
         <input type="text" th:field="*{reservationTime}" class="form-control">
 
-        choose patient
-        <select th:field="*{patient.id}" class="form-control">
+        <label for="patselect">Patient</label>
+        <select id="patselect" name="patientId" class="form-control">
+            <option value="">-- Patient auswaehlen --</option>
             <option th:each="p : ${patients}" th:value="${p.id}" th:text="${p.name + ' ' + p.surname}"></option>
+        </select>
+
+        <label for="devselect">Device</label>
+        <select id="devselect" name="deviceId" class="form-control">
+            <option value="">-- Geraet auswaehlen --</option>
+            <option th:each="d : ${devices}" th:text="${d.art + ' / Raum ' + d.raumnr}" th:value="${d.id}"></option>
         </select>
 
         choose body region

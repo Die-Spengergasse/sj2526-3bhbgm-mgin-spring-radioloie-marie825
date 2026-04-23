@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Patients List</title>
@@ -9,7 +9,7 @@
 <div class="container">
     <h1>Liste der Reservierungen</h1>
     Für welches Gerät möchten sie alle Reservierungen sehen?
-    <form method="get" action="/reservation/list">
+    <form method="get" action="/reservierung/list">
         <select name="deviceId" class="form-control">
             <option value="">-- Select a device --</option>
             <option th:each="d : ${devices}"
@@ -35,7 +35,7 @@
         <tr th:each="r : ${reservierung}">
             <td th:text="${r.reservationDate}"></td>
             <td th:text="${r.reservationTime}"></td>
-            <td th:text="${r.patient.firstname + ' ' + r.patient.surname}"></td>
+            <td th:text="${r.patient.name + ' ' + r.patient.surname}"></td>
             <td th:text="${r.device.art}"></td>
             <td th:text="${r.bodyPart}"></td>
             <td th:text="${r.commentar}"></td>
@@ -44,7 +44,7 @@
     </table>
 
     <p>
-        <a href="/reservation/add">new reservation</a>
+        <a href="/reservierung/add">new reservation</a>
     </p>
     <p>
         <a href="/">Back to homepage</a>
