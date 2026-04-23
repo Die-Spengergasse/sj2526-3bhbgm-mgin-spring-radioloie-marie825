@@ -35,7 +35,7 @@ public class Patient {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -48,8 +48,16 @@ public class Patient {
         return birth;
     }
 
-    public void setBirth(LocalDate birth) {
-        this.birth = birth;
+    public void setBirth(LocalDate birth)
+    {
+        if(birth.isAfter(LocalDate.now()))
+        {
+            throw new IllegalArgumentException("The birth date cannot be in the future");
+        }
+        else
+        {
+            this.birth = birth;
+        }
     }
 
     public String getSurname() {

@@ -20,7 +20,8 @@
         <input type="date" th:field="*{birth}" class="form-control">
 
         <label>Sozialversicherungsnummer: </label>
-        <input type="text" th:field="*{svnr}" class="form-control">
+        <input type="text" th:field="*{svnr}" class="form-control" maxlength="10" pattern="\d{10}">
+        <div th:if="${#fields.hasErrors('svnr')}" th:errors="*{svnr}" class="text-danger"></div>
 
         <label>Geschlecht: </label>
         <input type="text" th:field="*{geschlecht}" class="form-control">

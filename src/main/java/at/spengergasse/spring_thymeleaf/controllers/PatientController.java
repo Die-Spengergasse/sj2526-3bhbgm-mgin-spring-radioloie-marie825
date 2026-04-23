@@ -4,12 +4,11 @@ import at.spengergasse.spring_thymeleaf.entities.Patient;
 import at.spengergasse.spring_thymeleaf.entities.PatientRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("/patient")
@@ -33,9 +32,22 @@ public class PatientController {
     }
 
     @PostMapping("/add")
-    public String addPatient(@ModelAttribute("patient") Patient patient) {
+    public String addPatient(@ModelAttribute("patient") Patient patient, BindingResult bindingResult) {
+        if (!isValidSvnr(patient.getSvnr())) {
+            bindingResult.rejectValue("svnr", "svnr.invalid",
+                    "Ungueltige Sozialversicherungsnummer. Bitte genau 10 Ziffern eingeben.");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "add_patient";
+        }
+
         patientRepository.save(patient);
         return  "redirect:/patient/list";
+    }
+
+    private boolean isValidSvnr(String svnr) {
+        return svnr != null && svnr.matches("\\d{10}");
     }
 //@PostMapping("/add")
 //public String addPatient(@ModelAttribute("patient") Patient patient) {

@@ -64,8 +64,13 @@ public class Reservierung
         return reservationDate;
     }
 
-    public void setReservationDate(LocalDate reservationDate) {
-        this.reservationDate = reservationDate;
+    public void setReservationDate(LocalDate reservationDate)
+    {
+
+        if(reservationDate.isBefore(LocalDate.now()))
+        {
+            throw new IllegalArgumentException("reservation date is before now");
+        }
     }
 
     public String getReservationTime() {return reservationTime;}
