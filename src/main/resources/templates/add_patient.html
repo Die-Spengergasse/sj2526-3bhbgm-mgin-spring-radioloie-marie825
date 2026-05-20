@@ -18,9 +18,11 @@
 
         <label>Geburtsdatum: </label>
         <input type="date" th:field="*{birth}" class="form-control">
+        <div th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}" class="text-danger"></div>
 
         <label>Sozialversicherungsnummer: </label>
         <input type="text" th:field="*{svnr}" class="form-control" maxlength="10" pattern="\d{10}">
+        <small class="form-text text-muted" style="display:block;">Bitte 10 Ziffern ohne Leerzeichen eingeben.</small>
         <div th:if="${#fields.hasErrors('svnr')}" th:errors="*{svnr}" class="text-danger"></div>
 
         <label>Geschlecht: </label>

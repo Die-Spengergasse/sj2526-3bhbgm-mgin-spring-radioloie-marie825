@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/patient")
 public class PatientController {
@@ -33,6 +35,11 @@ public class PatientController {
 
     @PostMapping("/add")
     public String addPatient(@ModelAttribute("patient") Patient patient, BindingResult bindingResult) {
+        if (patient.getBirth() != null && patient.getBirth().isAfter(LocalDate.now())) {
+            bindingResult.rejectValue("birth", "birth.future",
+                    "Das Geburtsdatum darf nicht in der Zukunft liegen.");
+        }
+
         if (!isValidSvnr(patient.getSvnr())) {
             bindingResult.rejectValue("svnr", "svnr.invalid",
                     "Ungueltige Sozialversicherungsnummer. Bitte genau 10 Ziffern eingeben.");
@@ -49,18 +56,4 @@ public class PatientController {
     private boolean isValidSvnr(String svnr) {
         return svnr != null && svnr.matches("\\d{10}");
     }
-//@PostMapping("/add")
-//public String addPatient(@ModelAttribute("patient") Patient patient) {
-//    System.out.println("=== PATIENT DEBUG ===");
-//    System.out.println("name: '" + patient.getName() + "'");
-//    System.out.println("surname: '" + patient.getSurname() + "'");
-//    System.out.println("birth: " + patient.getBirth());
-//    System.out.println("svnr: '" + patient.getSvnr() + "'");
-//    System.out.println("geschlecht: '" + patient.getGeschlecht() + "' (char: " + (int)patient.getGeschlecht() + ")");
-//    System.out.println("=== END DEBUG ===");
-//
-//    patientRepository.saveAndFlush(patient);  // Sofort flush!
-//    System.out.println("Saved ID: " + patient.getId());
-//    return "redirect:/patient/list";
-//}
 }

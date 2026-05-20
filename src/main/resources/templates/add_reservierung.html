@@ -13,20 +13,24 @@
 
         Reservation Date
         <input type="date" th:field="*{reservationDate}" class="form-control" placeholder="reservierung Date">
+        <div th:if="${#fields.hasErrors('reservationDate')}" th:errors="*{reservationDate}" class="text-danger"></div>
 
         Reservation Time
-        <input type="text" th:field="*{reservationTime}" class="form-control">
+        <input type="time" th:field="*{reservationTime}" class="form-control">
+        <div th:if="${#fields.hasErrors('reservationTime')}" th:errors="*{reservationTime}" class="text-danger"></div>
 
         <label for="patselect">Patient</label>
         <select id="patselect" name="patientId" class="form-control">
             <option value="">-- Patient auswaehlen --</option>
-            <option th:each="p : ${patients}" th:value="${p.id}" th:text="${p.name + ' ' + p.surname}"></option>
+            <option th:each="p : ${patients}" th:value="${p.id}" th:text="${p.name + ' ' + p.surname}"
+                    th:selected="${selectedPatientId != null && selectedPatientId == p.id}"></option>
         </select>
 
         <label for="devselect">Device</label>
         <select id="devselect" name="deviceId" class="form-control">
             <option value="">-- Geraet auswaehlen --</option>
-            <option th:each="d : ${devices}" th:text="${d.art + ' / Raum ' + d.raumnr}" th:value="${d.id}"></option>
+            <option th:each="d : ${devices}" th:text="${d.art + ' / Raum ' + d.raumnr}" th:value="${d.id}"
+                    th:selected="${selectedDeviceId != null && selectedDeviceId == d.id}"></option>
         </select>
 
         choose body region
